@@ -1,0 +1,136 @@
+<!DOCTYPE HTML>
+<html lang="pl">
+<head>
+ <meta charset="utf-8"/>
+ <title>Urodzinowy Quiz!</title>
+ <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+ 
+ <style>
+ 
+ body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: #ffc0cb; /* jasnoróżowe tło */
+}
+ 
+#container {
+   width: 1000px;
+   margin-left:auto;
+   margin-right:auto;
+   color: #ff69b4;
+}
+#logo {
+   background-color: pink;
+   color: #c71585;
+   text-align: center;
+   padding: 25px;
+}
+#content {
+  float: left;
+  width: 1000px;
+  margin-left:auto;
+  margin-right:auto;
+  margin-bottom:30px;
+  background-color: white;
+  text-align: center;
+  padding: 20px;
+}
+body { font-family: Arial, sans-serif; padding: 20px; }
+.question p {
+    color: #c71585;       /* ciemny różowy */
+    font-weight: bold;    /* pogrubienie */
+    font-size: 25px;      /* większy rozmiar */
+    margin-top: 50px;     /* odstęp od poprzedzającego elementu */
+    margin-bottom: 10px;  /* odstęp poniżej pytania */
+}.hidden { display: none; }
+img { max-width: 300px; margin-top: 10px; }
+button {
+    padding: 15px 25px;
+    margin: 10px;
+    background-color: #ff69b4; /* różowy */
+    color: white; /* kolor tekstu */
+    border: none; /* usuwa domyślne obramowanie */
+    border-radius: 10px; /* zaokrąglone rogi */
+    cursor: pointer; /* zmienia kursor przy najechaniu */
+    font-size: 18px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #ff1493; /* ciemniejszy róż po najechaniu */
+} </style>
+</head>
+
+<body>
+
+
+<div id="container">
+  <div id="logo">
+    <h1>Urodzinowy Quiz</h1>
+  </div>
+  <div id="content">
+    Masz dzisiaj urodziny co oznacza, że mam dla Ciebie prezent!<br/><br/>
+    <img width="200" height="120" src="img/pinkp.jpg"/><br/>
+    Dostaniesz go ale najpierw musisz rozwiązać poprawnie Quiz składający się z 3 pytań.<br/><br/>
+    Powodzenia!
+  </div>
+
+<div id="quiz">
+    <div class="question" id="q1">
+        <p>1. Jaka jest ulubiona czekolada taty?</p>
+        <button onclick="answer(1, 'Z orzechami')">Z orzechami</button>
+        <button onclick="answer(1, 'Z owocami')">Z owocami</button>
+    </div>
+    <div class="question hidden" id="q2">
+        <p>2. Co tata lubi robić?</p>
+        <button onclick="answer(2, 'Biegać')">Biegać</button>
+        <button onclick="answer(2, 'Pływać')">Pływać</button>
+    </div>
+    <div class="question hidden" id="q3">
+        <p>3. Jakie jest najepsze jedzenie?</p>
+        <button onclick="answer(3, 'Kuchnia mamy')">Kuchnia mamy</button>
+        <button onclick="answer(3, 'Macdonald')">Macdonald</button>
+    </div>
+</div>
+
+<div id="reward" class="hidden">
+    <h2>Gratulacje! Ukończyłeś quiz!</h2>
+    <p>Twoja nagroda:</p>
+    <img src="img/tort.jpg" alt="Nagroda"></div>
+
+<script>
+let score = 0; // liczba poprawnych odpowiedzi
+
+function answer(questionNumber, answerText) {
+    // poprawne odpowiedzi
+    const correctAnswers = {
+        1: 'Z orzechami',
+        2: 'Pływać',
+        3: 'Kuchnia mamy'
+    };
+
+    // sprawdzenie poprawności odpowiedzi
+    if(answerText === correctAnswers[questionNumber]) {
+        score++;
+    }
+
+    // ukryj bieżące pytanie
+    document.getElementById('q' + questionNumber).classList.add('hidden');
+
+    // pokaż następne pytanie lub nagrodę
+    if(questionNumber < 3) {
+        document.getElementById('q' + (questionNumber + 1)).classList.remove('hidden');
+    } else {
+        if(score === 3) {
+            document.getElementById('reward').classList.remove('hidden');
+        } else {
+            alert('Niestety, nie odpowiedziałeś poprawnie na wszystkie pytania. Spróbuj ponownie!');
+            location.reload(); // opcjonalnie, aby rozpocząć quiz od nowa
+        }
+    }
+}
+</script>
+
+</div>
+</body>
+</html>
